@@ -204,6 +204,9 @@ namespace RoadCrossing
 
                     // Register the last position the player was at, so we can return to it if the path is blocked
                     previousPosition = thisTransform.position;
+					previousPosition.x = Mathf.Round(previousPosition.x);
+                    previousPosition.y = Mathf.Round(previousPosition.y);
+                    previousPosition.z = Mathf.Round(previousPosition.z);
 
                     switch (currentMove.ToLower())
 					{
@@ -214,9 +217,9 @@ namespace RoadCrossing
 							thisTransform.eulerAngles = newEulerAngle;
 
 							// Set the new target position to move to
-							targetPosition = thisTransform.position + new Vector3(1, 2, 0);
+							targetPosition = thisTransform.position + new Vector3(1f, 2f, 0f);
 
-							// Make sure the player lands on the grid 
+							// Make sure the player lands on the grid
 							targetPosition.x = Mathf.Round(targetPosition.x);
 							targetPosition.z = Mathf.Round(targetPosition.z);
 
@@ -228,12 +231,12 @@ namespace RoadCrossing
 							newEulerAngle.y = 180;
 							thisTransform.eulerAngles = newEulerAngle;
 
-							// Make sure the player lands on the grid 
-							targetPosition.x = Mathf.Round(targetPosition.x);
-							targetPosition.z = Mathf.Round(targetPosition.z);
+                            // Set the new target position to move to
+                            targetPosition = thisTransform.position + new Vector3(-1f, 2f, 0f);
 
-							// Set the new target position to move to
-							targetPosition = thisTransform.position + new Vector3(-1, 2, 0);
+                            // Make sure the player lands on the grid 
+                            targetPosition.x = Mathf.Round(targetPosition.x);
+							targetPosition.z = Mathf.Round(targetPosition.z);
 
 							break;
 
@@ -243,12 +246,12 @@ namespace RoadCrossing
 							newEulerAngle.y = 90;
 							thisTransform.eulerAngles = newEulerAngle;
 
+							// Set the new target position to move to
+							targetPosition = thisTransform.position + new Vector3(0f, 2f, -1f);
+
 							// Make sure the player lands on the grid 
 							targetPosition.x = Mathf.Round(targetPosition.x);
 							targetPosition.z = Mathf.Round(targetPosition.z);
-
-							// Set the new target position to move to
-							targetPosition = thisTransform.position + new Vector3(0, 2, -1);
 
 							break;
 
@@ -258,12 +261,12 @@ namespace RoadCrossing
 							newEulerAngle.y = -90;
 							thisTransform.eulerAngles = newEulerAngle;
 
-							// Make sure the player lands on the grid 
-							targetPosition.x = Mathf.Round(targetPosition.x);
-							targetPosition.z = Mathf.Round(targetPosition.z);
+                            // Set the new target position to move to
+                            targetPosition = thisTransform.position + new Vector3(0f, 2f, 1f);
 
-							// Set the new target position to move to
-							targetPosition = thisTransform.position + new Vector3(0, 2, 1);
+                            // Make sure the player lands on the grid 
+                            targetPosition.x = Mathf.Round(targetPosition.x);
+							targetPosition.z = Mathf.Round(targetPosition.z);
 
 							break;
 
@@ -275,8 +278,11 @@ namespace RoadCrossing
 
 							// Set the new target position to move to
 							targetPosition = thisTransform.position;
+                            targetPosition.x = Mathf.Round(targetPosition.x);
+                            targetPosition.y = Mathf.Round(targetPosition.y);
+                            targetPosition.z = Mathf.Round(targetPosition.z);
 
-							targetPosition.Normalize();
+                            targetPosition.Normalize();
 
 							break;
 					}
@@ -301,7 +307,6 @@ namespace RoadCrossing
 
 						GetComponent<Animation>().Stop();
 
-						Debug.Log(animationMove.name);
 						// Play the animation
 						GetComponent<Animation>().Play(animationMove.name);
 
@@ -329,8 +334,6 @@ namespace RoadCrossing
         [Preserve]
         void CancelMove(float moveDelayTime)
 		{
-			Debug.Log("Previous: " + previousPosition + " | " + "Next: " + targetPosition);
-
             // Set the previous position as the target position to move to
             targetPosition = previousPosition;
 
@@ -402,8 +405,13 @@ namespace RoadCrossing
 				// If we have death effects...
 				if (deathEffect.Length > 0)
 				{
-					// Create the correct death effect
-					Instantiate(deathEffect[deathType], thisTransform.position, thisTransform.rotation);
+					Vector3 effectPosition = thisTransform.position;
+					effectPosition.x = Mathf.Round(effectPosition.x);
+                    effectPosition.y = Mathf.Round(effectPosition.y);
+                    effectPosition.z = Mathf.Round(effectPosition.z);
+
+                    // Create the correct death effect
+                    Instantiate(deathEffect[deathType], effectPosition, thisTransform.rotation);
 				}
 
                 // Deactivate the player object

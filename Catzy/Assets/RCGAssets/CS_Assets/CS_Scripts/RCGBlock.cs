@@ -54,10 +54,10 @@ namespace RoadCrossing
                 // Go through the list of functions and run only those with a tag of a touched object
                 foreach (var touchFunction in touchFunctions)
 				{
-					if(touchFunction.targetTag == other.tag)
+					if(touchFunction.targetTag == other.tag || touchFunction.targetTag == "GameController")
 					{
                         // Check that we have a target tag and function name before running
-                        if (touchFunction.functionName != string.Empty && touchFunction.targetTag == other.tag)
+                        if (touchFunction.functionName != string.Empty && touchFunction.targetTag == other.tag || touchFunction.targetTag == "GameController")
                         {
                             if (touchFunction.functionName != "AttachToThis")
                             {
@@ -65,7 +65,6 @@ namespace RoadCrossing
                             }
                             else
                             {
-								Debug.Log(touchFunction.functionName);
                                 GameObject.FindGameObjectWithTag(touchFunction.targetTag).SendMessage(touchFunction.functionName, transform);
                             }
                         }

@@ -613,6 +613,8 @@ namespace RoadCrossing
                         // If there is a respawn object, place the player at its position, and hide the respawn object
                         if (respawnObject1)
                         {
+							Debug.Log(respawnObject1.position);
+
                             targetPosition = respawnObject1.position;
 
                             playerObjects1[currentPlayer1].position = targetPosition;
@@ -819,8 +821,16 @@ namespace RoadCrossing
 				if (index != playerNumber)
 					playerObjects1[index].gameObject.SetActive(false);
 				else
-					playerObjects1[index].gameObject.SetActive(true);
-			}
+				{
+                    Vector3 spawnPosition = respawnObject1.gameObject.transform.position;
+                    spawnPosition.x = Mathf.Round(spawnPosition.x);
+                    spawnPosition.y = Mathf.Round(spawnPosition.y);
+                    spawnPosition.z = Mathf.Round(spawnPosition.z);
+
+                    playerObjects1[index].gameObject.transform.position = spawnPosition;
+                    playerObjects1[index].gameObject.SetActive(true);
+                }
+            }
 		}
 
 		/// <summary>
@@ -839,7 +849,16 @@ namespace RoadCrossing
                 if (index != playerNumber)
                     playerObjects2[index].gameObject.SetActive(false);
                 else
+				{
+					//move playerObject to respawn position
+					Vector3 spawnPosition = respawnObject2.gameObject.transform.position;
+                    spawnPosition.x = Mathf.Round(spawnPosition.x);
+                    spawnPosition.y = Mathf.Round(spawnPosition.y);
+                    spawnPosition.z = Mathf.Round(spawnPosition.z);
+
+					playerObjects2[index].gameObject.transform.position = spawnPosition;
                     playerObjects2[index].gameObject.SetActive(true);
+                }
             }
         }
 
@@ -898,8 +917,22 @@ namespace RoadCrossing
         /// </summary>
         void ResetDeathLine()
 		{
-			if (deathLineObject && cameraObject1) deathLineTargetPosX = cameraObject1.position.x;
-		}
+			if(numOfPlayers < 2)
+			{
+                if (deathLineObject && cameraObject1) deathLineTargetPosX = cameraObject1.position.x - 5f;
+            }
+			else
+			{
+				if(cameraObject1.position.x < cameraObject2.position.x)
+				{
+                    if (deathLineObject && cameraObject1) deathLineTargetPosX = cameraObject1.position.x - 5f;
+                }
+				else
+				{
+                    if (deathLineObject && cameraObject2) deathLineTargetPosX = cameraObject2.position.x - 5f;
+                }
+			}
+        }
 
 		/// <summary>
 		/// Activates a power up from a list of available power ups
