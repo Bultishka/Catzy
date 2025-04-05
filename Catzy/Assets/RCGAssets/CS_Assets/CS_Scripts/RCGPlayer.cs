@@ -411,8 +411,11 @@ namespace RoadCrossing
                     effectPosition.z = Mathf.Round(effectPosition.z);
 
                     // Create the correct death effect
-                    Instantiate(deathEffect[deathType], effectPosition, thisTransform.rotation);
-				}
+                    Transform effect = Instantiate(deathEffect[deathType], effectPosition, thisTransform.rotation);
+                    Animation anim = effect.GetComponent<Animation>();
+                    AnimationState state = anim[anim.clip.name];
+                    Destroy(effect.gameObject, state.length);
+                }
 
                 // Deactivate the player object
                 gameObject.SetActive(false);

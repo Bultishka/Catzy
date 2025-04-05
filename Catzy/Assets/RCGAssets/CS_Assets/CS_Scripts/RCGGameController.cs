@@ -591,10 +591,16 @@ namespace RoadCrossing
                     // Show the respawn object, allowing it to move
                     if (respawnObject1)
                     {
-                        respawnObject1.gameObject.SetActive(true);
+						respawnObject1.gameObject.SetActive(true);
 
-                        respawnObject1.position = playerObjects1[currentPlayer1].position;
+						Vector3 position = playerObjects1[currentPlayer1].position;
 
+						position.x = Mathf.Round(position.x);
+                        position.y = Mathf.Round(position.y);
+                        position.z = Mathf.Round(position.z);
+
+                        respawnObject1.position = position;
+						
                         respawnObject1.rotation = playerObjects1[currentPlayer1].rotation;
 
                         respawnObject1.SendMessage("Spawn");
@@ -613,9 +619,11 @@ namespace RoadCrossing
                         // If there is a respawn object, place the player at its position, and hide the respawn object
                         if (respawnObject1)
                         {
-							Debug.Log(respawnObject1.position);
-
                             targetPosition = respawnObject1.position;
+
+                            targetPosition.x = Mathf.Round(targetPosition.x);
+                            targetPosition.y = Mathf.Round(targetPosition.y);
+                            targetPosition.z = Mathf.Round(targetPosition.z);
 
                             playerObjects1[currentPlayer1].position = targetPosition;
 
@@ -644,7 +652,13 @@ namespace RoadCrossing
                     {
                         respawnObject2.gameObject.SetActive(true);
 
-                        respawnObject2.position = playerObjects2[currentPlayer2].position;
+                        Vector3 position = playerObjects2[currentPlayer2].position;
+
+                        position.x = Mathf.Round(position.x);
+                        position.y = Mathf.Round(position.y);
+                        position.z = Mathf.Round(position.z);
+
+                        respawnObject2.position = position;
 
                         respawnObject2.rotation = playerObjects2[currentPlayer2].rotation;
 
@@ -664,6 +678,10 @@ namespace RoadCrossing
                         if (respawnObject2)
                         {
                             targetPosition = respawnObject2.position;
+
+                            targetPosition.x = Mathf.Round(targetPosition.x);
+                            targetPosition.y = Mathf.Round(targetPosition.y);
+                            targetPosition.z = Mathf.Round(targetPosition.z);
 
                             playerObjects2[currentPlayer2].position = targetPosition;
 
@@ -696,7 +714,13 @@ namespace RoadCrossing
                     {
                         respawnObject1.gameObject.SetActive(true);
 
-                        respawnObject1.position = playerObjects1[currentPlayer1].position;
+                        Vector3 position = playerObjects1[currentPlayer1].position;
+
+                        position.x = Mathf.Round(position.x);
+                        position.y = Mathf.Round(position.y);
+                        position.z = Mathf.Round(position.z);
+
+                        respawnObject1.position = position;
 
                         respawnObject1.rotation = playerObjects1[currentPlayer1].rotation;
 
@@ -717,6 +741,10 @@ namespace RoadCrossing
                         if (respawnObject1)
                         {
                             targetPosition = respawnObject1.position;
+
+                            targetPosition.x = Mathf.Round(targetPosition.x);
+                            targetPosition.y = Mathf.Round(targetPosition.y);
+                            targetPosition.z = Mathf.Round(targetPosition.z);
 
                             playerObjects1[currentPlayer1].position = targetPosition;
 
