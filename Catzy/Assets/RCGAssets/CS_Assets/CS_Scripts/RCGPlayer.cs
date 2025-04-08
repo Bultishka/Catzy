@@ -412,9 +412,6 @@ namespace RoadCrossing
 
                     // Create the correct death effect
                     Transform effect = Instantiate(deathEffect[deathType], effectPosition, thisTransform.rotation);
-                    Animation anim = effect.GetComponent<Animation>();
-                    AnimationState state = anim[anim.clip.name];
-                    Destroy(effect.gameObject, state.length);
                 }
 
                 // Deactivate the player object
