@@ -396,7 +396,7 @@ namespace RoadCrossing
                 // Deactivate the player object
                 gameObject.SetActive(false);
 			}
-			isMoving = true;
+			isMoving = false;
         }
 
         /// <summary>
