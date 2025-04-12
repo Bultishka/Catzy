@@ -280,6 +280,26 @@ namespace RoadCrossing
 		/// </summary>
 		void Update()
 		{
+			if (numOfPlayers > 0) 
+			{
+                if (respawnObject1.gameObject.activeSelf)
+                {
+                    playerObjects1[currentPlayer1].gameObject.transform.position = respawnObject1.gameObject.transform.position;
+                }
+				else if (!respawnObject1.gameObject.activeSelf)
+				{
+                    respawnObject1.gameObject.transform.position = playerObjects1[currentPlayer1].gameObject.transform.position;
+                }
+
+				if (respawnObject2.gameObject.activeSelf)
+				{
+					playerObjects2[currentPlayer2].gameObject.transform.position = respawnObject2.gameObject.transform.position;
+				}
+                else if (!respawnObject2.gameObject.activeSelf)
+                {
+                    respawnObject2.gameObject.transform.position = playerObjects2[currentPlayer2].gameObject.transform.position;
+                }
+            }
 			// If the game is over, listen for the Restart and MainMenu buttons
 			if (isGameOver == true)
 			{
@@ -593,18 +613,17 @@ namespace RoadCrossing
                     // Show the respawn object, allowing it to move
                     if (!respawnObject1.gameObject.activeSelf)
                     {
-						respawnObject1.gameObject.SetActive(true);
+						//Vector3 position = playerObjects1[currentPlayer1].position;
 
-						Vector3 position = playerObjects1[currentPlayer1].position;
+						//position.x = Mathf.Round(position.x);
+      //                  position.y = Mathf.Round(position.y);
+      //                  position.z = Mathf.Round(position.z);
 
-						position.x = Mathf.Round(position.x);
-                        position.y = Mathf.Round(position.y);
-                        position.z = Mathf.Round(position.z);
-
-                        respawnObject1.position = position;
+                        respawnObject1.position = playerObjects1[currentPlayer1].position;
 						
                         respawnObject1.rotation = playerObjects1[currentPlayer1].rotation;
 
+                        respawnObject1.gameObject.SetActive(true);
                         respawnObject1.SendMessage("Spawn");
                     }
 
@@ -613,26 +632,27 @@ namespace RoadCrossing
                     // Activate the player object
                     if (playerObjects1[currentPlayer1].gameObject.activeSelf == false && playerObjects1[currentPlayer1].tag == playerTag)
                     {
-                        playerObjects1[currentPlayer1].gameObject.SetActive(true);
-
-                        // Respawn the player object
-                        playerObjects1[currentPlayer1].SendMessage("Spawn");
+                        
 
                         // If there is a respawn object, place the player at its position, and hide the respawn object
                         if (respawnObject1.gameObject.activeSelf)
                         {
-                            targetPositionP1 = respawnObject1.position;
+                            //targetPositionP1 = respawnObject1.position;
 
-                            targetPositionP1.x = Mathf.Round(targetPositionP1.x);
-                            targetPositionP1.y = Mathf.Round(targetPositionP1.y);
-                            targetPositionP1.z = Mathf.Round(targetPositionP1.z);
+                            //targetPositionP1.x = Mathf.Round(targetPositionP1.x);
+                            //targetPositionP1.y = Mathf.Round(targetPositionP1.y);
+                            //targetPositionP1.z = Mathf.Round(targetPositionP1.z);
 
-                            playerObjects1[currentPlayer1].position = targetPositionP1;
+                            playerObjects1[currentPlayer1].position = respawnObject1.position;
 
                             playerObjects1[currentPlayer1].rotation = respawnObject1.rotation;
 
                             respawnObject1.gameObject.SetActive(false);
                         }
+
+                        playerObjects1[currentPlayer1].gameObject.SetActive(true);
+                        // Respawn the player object
+                        playerObjects1[currentPlayer1].SendMessage("Spawn");
                     }
                 }
                 // check if the second player has died and his skin is still visible
@@ -652,18 +672,17 @@ namespace RoadCrossing
                     // Show the respawn object, allowing it to move
                     if (!respawnObject2.gameObject.activeSelf)
                     {
-                        respawnObject2.gameObject.SetActive(true);
+                        //Vector3 position = playerObjects2[currentPlayer2].position;
 
-                        Vector3 position = playerObjects2[currentPlayer2].position;
+                        //position.x = Mathf.Round(position.x);
+                        //position.y = Mathf.Round(position.y);
+                        //position.z = Mathf.Round(position.z);
 
-                        position.x = Mathf.Round(position.x);
-                        position.y = Mathf.Round(position.y);
-                        position.z = Mathf.Round(position.z);
-
-                        respawnObject2.position = position;
+                        respawnObject2.position = playerObjects2[currentPlayer2].position;
 
                         respawnObject2.rotation = playerObjects2[currentPlayer2].rotation;
 
+						respawnObject2.gameObject.SetActive(true);
                         respawnObject2.SendMessage("Spawn");
                     }
 
@@ -671,26 +690,26 @@ namespace RoadCrossing
                     // Activate the player object
                     if (playerObjects2[currentPlayer2].gameObject.activeSelf == false && playerObjects2[currentPlayer2].tag == playerTag)
                     {
-                        playerObjects2[currentPlayer2].gameObject.SetActive(true);
-
-                        // Respawn the player object
-                        playerObjects2[currentPlayer2].SendMessage("Spawn");
 
                         // If there is a respawn object, place the player at its position, and hide the respawn object
                         if (respawnObject2.gameObject.activeSelf)
                         {
-                            targetPositionP2 = respawnObject2.position;
+                            //targetPositionP2 = respawnObject2.position;
 
-                            targetPositionP2.x = Mathf.Round(targetPositionP2.x);
-                            targetPositionP2.y = Mathf.Round(targetPositionP2.y);
-                            targetPositionP2.z = Mathf.Round(targetPositionP2.z);
+                            //targetPositionP2.x = Mathf.Round(targetPositionP2.x);
+                            //targetPositionP2.y = Mathf.Round(targetPositionP2.y);
+                            //targetPositionP2.z = Mathf.Round(targetPositionP2.z);
 
-                            playerObjects2[currentPlayer2].position = targetPositionP2;
+                            playerObjects2[currentPlayer2].position = respawnObject2.position;
 
                             playerObjects2[currentPlayer2].rotation = respawnObject2.rotation;
 
                             respawnObject2.gameObject.SetActive(false);
                         }
+
+                        playerObjects2[currentPlayer2].gameObject.SetActive(true);
+                        // Respawn the player object
+                        playerObjects2[currentPlayer2].SendMessage("Spawn");
                     }
                 }
             }
@@ -714,18 +733,17 @@ namespace RoadCrossing
                     // Show the respawn object, allowing it to move
                     if (!respawnObject1.gameObject.activeSelf)
                     {
-                        respawnObject1.gameObject.SetActive(true);
+                        //Vector3 position = playerObjects1[currentPlayer1].position;
 
-                        Vector3 position = playerObjects1[currentPlayer1].position;
+                        //position.x = Mathf.Round(position.x);
+                        //position.y = Mathf.Round(position.y);
+                        //position.z = Mathf.Round(position.z);
 
-                        position.x = Mathf.Round(position.x);
-                        position.y = Mathf.Round(position.y);
-                        position.z = Mathf.Round(position.z);
-
-                        respawnObject1.position = position;
+                        respawnObject1.position = playerObjects1[currentPlayer1].position;
 
                         respawnObject1.rotation = playerObjects1[currentPlayer1].rotation;
 
+                        respawnObject1.gameObject.SetActive(true);
                         respawnObject1.SendMessage("Spawn");
                     }
 
@@ -734,27 +752,26 @@ namespace RoadCrossing
                     // Activate the player object
                     if (playerObjects1[currentPlayer1].gameObject.activeSelf == false)
                     {
-                        playerObjects1[currentPlayer1].gameObject.SetActive(true);
-
-                        // Respawn the player object
-                        playerObjects1[currentPlayer1].SendMessage("Spawn");
-
                         // If there is a respawn object, place the player at its position, and hide the respawn object
                         if (respawnObject1.gameObject.activeSelf)
                         {
-                            targetPositionP1 = respawnObject1.position;
-                            Debug.Log(targetPositionP1);
+                            //targetPositionP1 = respawnObject1.position;
+                            //Debug.Log(targetPositionP1);
 
-                            targetPositionP1.x = Mathf.Round(targetPositionP1.x);
-                            targetPositionP1.y = Mathf.Round(targetPositionP1.y);
-                            targetPositionP1.z = Mathf.Round(targetPositionP1.z);
+                            //targetPositionP1.x = Mathf.Round(targetPositionP1.x);
+                            //targetPositionP1.y = Mathf.Round(targetPositionP1.y);
+                            //targetPositionP1.z = Mathf.Round(targetPositionP1.z);
 
-                            playerObjects1[currentPlayer1].position = targetPositionP1;
+                            playerObjects1[currentPlayer1].position = respawnObject1.position;
 
                             playerObjects1[currentPlayer1].rotation = respawnObject1.rotation;
 
                             respawnObject1.gameObject.SetActive(false);
                         }
+
+						playerObjects1[currentPlayer1].gameObject.SetActive(true);
+                        // Respawn the player object
+                        playerObjects1[currentPlayer1].SendMessage("Spawn");
                     }
                 }
             }

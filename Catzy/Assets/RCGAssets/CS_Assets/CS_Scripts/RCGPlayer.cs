@@ -110,7 +110,7 @@ namespace RoadCrossing
 				if (Time.timeScale > 0)
 				{
 					// You can move left/right only if you are not already moving forward/backwards
-					if (Input.GetAxis(playerPrefix + "Vertical") == 0)
+					if (Input.GetAxis(playerPrefix + "Vertical") == 0 && gameObject.activeSelf)
 					{
                         // Moving right
                         if (Input.GetAxis(playerPrefix + "Horizontal") > 0)
@@ -128,7 +128,7 @@ namespace RoadCrossing
 					}
 
 					// You can move forward/backwards only if you are not already moving left/right
-					if (Input.GetAxis(playerPrefix + "Horizontal") == 0)
+					if (Input.GetAxis(playerPrefix + "Horizontal") == 0 && gameObject.activeSelf)
 					{
 						// Moving forward
 						if (Input.GetAxis(playerPrefix + "Vertical") > 0)
@@ -147,21 +147,21 @@ namespace RoadCrossing
 				}
 
 				// If the player is moving, move it to its target
-				if (isMoving == true)
+				if (isMoving == true && gameObject.activeSelf)
 				{
                     // Keep moving towards the target position until we reach it
                     if (attachedToObject == null)
 					{
-						if (Vector3.Distance(thisTransform.position, targetPosition) > 0.1)
+						if (Vector3.Distance(thisTransform.position, targetPosition) > 0)
 						{
                             // Move this object towards the target position
                             thisTransform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed * speedMultiplier);
                         }
 						else
 						{
-							//thisTransform.position = targetPosition;
+							thisTransform.position = targetPosition;
 
-							if (thisTransform.position.x > moveProgress)
+                            if (thisTransform.position.x > moveProgress)
 							{
 								gameController.SendMessage("ChangeScore", moveScore);
 
@@ -171,14 +171,6 @@ namespace RoadCrossing
                             isMoving = false;
 						}
 					}
-				}
-				else if (nextMove != "stop" && nextMove != currentMove) // If there is a next move recorded, move the player to it and clear it
-				{
-					// Move the player to the next move
-					Move(nextMove);
-
-					// Clear the next move
-					nextMove = "stop";
 				}
 			}
 		}
@@ -270,8 +262,9 @@ namespace RoadCrossing
 							break;
 					}
 
-					//targetPosition.y = moveHeight;
-					//targetPosition.y = Mathf.Round(targetPosition.y);
+					targetPosition.y = moveHeight;
+					targetPosition.y = Mathf.Round(targetPosition.y);
+
                     // If we are using an Animator Object, use it for animation
                     if (animatorObject)
 					{
@@ -317,8 +310,6 @@ namespace RoadCrossing
         [Preserve]
         void CancelMove(float moveDelayTime)
 		{
-            // Set the previous position as the target position to move to
-            targetPosition = previousPosition;
 
             // If there is an animation, play it
             if (GetComponent<Animation>() && animationMove)
@@ -326,6 +317,9 @@ namespace RoadCrossing
 				// Set the animation speed base on the movement speed
 				GetComponent<Animation>()[animationMove.name].speed = -speed * speedMultiplier;
 			}
+
+            // Set the previous position as the target position to move to
+            targetPosition = previousPosition;
 
             // If there is a move delay, prevent movement for a while
             moveDelay = moveDelayTime;
@@ -388,21 +382,22 @@ namespace RoadCrossing
 				// If we have death effects...
 				if (deathEffect.Length > 0)
 				{
-					Vector3 effectPosition = thisTransform.position;
-					effectPosition.x = Mathf.Round(effectPosition.x);
-                    effectPosition.y = Mathf.Round(effectPosition.y);
-                    effectPosition.z = Mathf.Round(effectPosition.z);
+					//Vector3 effectPosition = thisTransform.position;
+					//effectPosition.x = Mathf.Round(effectPosition.x);
+     //               effectPosition.y = Mathf.Round(effectPosition.y);
+     //               effectPosition.z = Mathf.Round(effectPosition.z);
 
-                    Quaternion effectRotation = thisTransform.rotation;
+     //               Quaternion effectRotation = thisTransform.rotation;
 
                     // Create the correct death effect
-                    Transform effect = Instantiate(deathEffect[deathType], effectPosition, effectRotation);
+                    Transform effect = Instantiate(deathEffect[deathType], thisTransform.position, thisTransform.rotation);
                 }
 				
                 // Deactivate the player object
                 gameObject.SetActive(false);
 			}
-		}
+			isMoving = true;
+        }
 
         /// <summary>
         /// Spawns the player
@@ -410,10 +405,7 @@ namespace RoadCrossing
         [Preserve]
         void Spawn()
 		{
-            // Activate the player object
-            gameObject.SetActive(true);
-            
-
+			isMoving = false;
             // If there is an animation, update the animation speed based on speedMultiplier
             if (GetComponent<Animation>() && animationSpawn) GetComponent<Animation>().Play(animationSpawn.name);
 		}
