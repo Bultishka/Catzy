@@ -172,6 +172,7 @@ namespace RoadCrossing
 							isMoving = false;
 						}
 					}
+					Debug.Log(tag + " – " + targetPosition);
 				}
 				else if (nextMove != "stop" && nextMove != currentMove) // If there is a next move recorded, move the player to it and clear it
 				{
@@ -410,10 +411,12 @@ namespace RoadCrossing
                     effectPosition.y = Mathf.Round(effectPosition.y);
                     effectPosition.z = Mathf.Round(effectPosition.z);
 
-                    // Create the correct death effect
-                    Transform effect = Instantiate(deathEffect[deathType], effectPosition, thisTransform.rotation);
-                }
+                    Quaternion effectRotation = thisTransform.rotation;
 
+                    // Create the correct death effect
+                    Transform effect = Instantiate(deathEffect[deathType], effectPosition, effectRotation);
+                }
+				
                 // Deactivate the player object
                 gameObject.SetActive(false);
 			}

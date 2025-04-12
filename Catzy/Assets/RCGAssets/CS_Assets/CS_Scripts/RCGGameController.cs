@@ -31,7 +31,8 @@ namespace RoadCrossing
 		public float respawnTime = 1.2f;
 		public Transform respawnObject1;
         public Transform respawnObject2;
-        static Vector3 targetPosition;
+        internal Vector3 targetPositionP1;
+		internal Vector3 targetPositionP2;
 
 		// The camera that follows the player
 		public Transform cameraObject1;
@@ -617,15 +618,15 @@ namespace RoadCrossing
                         playerObjects1[currentPlayer1].SendMessage("Spawn");
 
                         // If there is a respawn object, place the player at its position, and hide the respawn object
-                        if (respawnObject1)
+                        if (respawnObject1.gameObject.activeSelf)
                         {
-                            targetPosition = respawnObject1.position;
+                            targetPositionP1 = respawnObject1.position;
 
-                            targetPosition.x = Mathf.Round(targetPosition.x);
-                            targetPosition.y = Mathf.Round(targetPosition.y);
-                            targetPosition.z = Mathf.Round(targetPosition.z);
+                            targetPositionP1.x = Mathf.Round(targetPositionP1.x);
+                            targetPositionP1.y = Mathf.Round(targetPositionP1.y);
+                            targetPositionP1.z = Mathf.Round(targetPositionP1.z);
 
-                            playerObjects1[currentPlayer1].position = targetPosition;
+                            playerObjects1[currentPlayer1].position = targetPositionP1;
 
                             playerObjects1[currentPlayer1].rotation = respawnObject1.rotation;
 
@@ -675,15 +676,15 @@ namespace RoadCrossing
                         playerObjects2[currentPlayer2].SendMessage("Spawn");
 
                         // If there is a respawn object, place the player at its position, and hide the respawn object
-                        if (respawnObject2)
+                        if (respawnObject2.gameObject.activeSelf)
                         {
-                            targetPosition = respawnObject2.position;
+                            targetPositionP2 = respawnObject2.position;
 
-                            targetPosition.x = Mathf.Round(targetPosition.x);
-                            targetPosition.y = Mathf.Round(targetPosition.y);
-                            targetPosition.z = Mathf.Round(targetPosition.z);
+                            targetPositionP2.x = Mathf.Round(targetPositionP2.x);
+                            targetPositionP2.y = Mathf.Round(targetPositionP2.y);
+                            targetPositionP2.z = Mathf.Round(targetPositionP2.z);
 
-                            playerObjects2[currentPlayer2].position = targetPosition;
+                            playerObjects2[currentPlayer2].position = targetPositionP2;
 
                             playerObjects2[currentPlayer2].rotation = respawnObject2.rotation;
 
@@ -738,15 +739,16 @@ namespace RoadCrossing
                         playerObjects1[currentPlayer1].SendMessage("Spawn");
 
                         // If there is a respawn object, place the player at its position, and hide the respawn object
-                        if (respawnObject1)
+                        if (respawnObject1.gameObject.activeSelf)
                         {
-                            targetPosition = respawnObject1.position;
+                            targetPositionP1 = respawnObject1.position;
+                            Debug.Log(targetPositionP1);
 
-                            targetPosition.x = Mathf.Round(targetPosition.x);
-                            targetPosition.y = Mathf.Round(targetPosition.y);
-                            targetPosition.z = Mathf.Round(targetPosition.z);
+                            targetPositionP1.x = Mathf.Round(targetPositionP1.x);
+                            targetPositionP1.y = Mathf.Round(targetPositionP1.y);
+                            targetPositionP1.z = Mathf.Round(targetPositionP1.z);
 
-                            playerObjects1[currentPlayer1].position = targetPosition;
+                            playerObjects1[currentPlayer1].position = targetPositionP1;
 
                             playerObjects1[currentPlayer1].rotation = respawnObject1.rotation;
 
