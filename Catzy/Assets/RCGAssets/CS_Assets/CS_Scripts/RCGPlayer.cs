@@ -154,12 +154,12 @@ namespace RoadCrossing
 					{
 						if (Vector3.Distance(thisTransform.position, targetPosition) > 0.1)
 						{
-							// Move this object towards the target position
-							thisTransform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed * speedMultiplier);
-						}
+                            // Move this object towards the target position
+                            thisTransform.position = Vector3.MoveTowards(transform.position, targetPosition, Time.deltaTime * speed * speedMultiplier);
+                        }
 						else
 						{
-							// thisTransform.position = targetPosition;
+							//thisTransform.position = targetPosition;
 
 							if (thisTransform.position.x > moveProgress)
 							{
@@ -167,12 +167,10 @@ namespace RoadCrossing
 
 								moveProgress++;
 							}
-
-							// The object is not moving anymore
-							isMoving = false;
+                            // The object is not moving anymore
+                            isMoving = false;
 						}
 					}
-					Debug.Log(tag + " – " + targetPosition);
 				}
 				else if (nextMove != "stop" && nextMove != currentMove) // If there is a next move recorded, move the player to it and clear it
 				{
@@ -218,7 +216,7 @@ namespace RoadCrossing
 							thisTransform.eulerAngles = newEulerAngle;
 
 							// Set the new target position to move to
-							targetPosition = thisTransform.position + new Vector3(1f, 2f, 0f);
+							targetPosition = thisTransform.position + new Vector3(1f, 0f, 0f);
 
 							// Make sure the player lands on the grid
 							targetPosition.x = Mathf.Round(targetPosition.x);
@@ -233,7 +231,7 @@ namespace RoadCrossing
 							thisTransform.eulerAngles = newEulerAngle;
 
                             // Set the new target position to move to
-                            targetPosition = thisTransform.position + new Vector3(-1f, 2f, 0f);
+                            targetPosition = thisTransform.position + new Vector3(-1f, 0f, 0f);
 
                             // Make sure the player lands on the grid 
                             targetPosition.x = Mathf.Round(targetPosition.x);
@@ -248,7 +246,7 @@ namespace RoadCrossing
 							thisTransform.eulerAngles = newEulerAngle;
 
 							// Set the new target position to move to
-							targetPosition = thisTransform.position + new Vector3(0f, 2f, -1f);
+							targetPosition = thisTransform.position + new Vector3(0f, 0f, -1f);
 
 							// Make sure the player lands on the grid 
 							targetPosition.x = Mathf.Round(targetPosition.x);
@@ -263,35 +261,19 @@ namespace RoadCrossing
 							thisTransform.eulerAngles = newEulerAngle;
 
                             // Set the new target position to move to
-                            targetPosition = thisTransform.position + new Vector3(0f, 2f, 1f);
+                            targetPosition = thisTransform.position + new Vector3(0f, 0f, 1f);
 
                             // Make sure the player lands on the grid 
                             targetPosition.x = Mathf.Round(targetPosition.x);
 							targetPosition.z = Mathf.Round(targetPosition.z);
 
 							break;
-
-						default:
-							// Turn to the front
-							newEulerAngle = new Vector3();
-							newEulerAngle.y = 0;
-							thisTransform.eulerAngles = newEulerAngle;
-
-							// Set the new target position to move to
-							targetPosition = thisTransform.position;
-                            targetPosition.x = Mathf.Round(targetPosition.x);
-                            targetPosition.y = Mathf.Round(targetPosition.y);
-                            targetPosition.z = Mathf.Round(targetPosition.z);
-
-                            targetPosition.Normalize();
-
-							break;
 					}
 
-					targetPosition.y = moveHeight;
-
-					// If we are using an Animator Object, use it for animation
-					if (animatorObject)
+					//targetPosition.y = moveHeight;
+					//targetPosition.y = Mathf.Round(targetPosition.y);
+                    // If we are using an Animator Object, use it for animation
+                    if (animatorObject)
 					{
 						// print(animatorObject.GetCurrentAnimatorStateInfo(0).IsName("Idle"));
 						// animatorObject["Jump"].time = 0f;

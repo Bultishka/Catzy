@@ -56,7 +56,7 @@ namespace RoadCrossing
 				{
 					if(touchFunction.targetTag == other.tag || touchFunction.targetTag == "GameController")
 					{
-						Debug.Log(name + " вызвало " + touchFunction.functionName + " у " + other.tag);
+						Debug.Log(name + " вызвало " + touchFunction.functionName + " у " + other.tag + " на позиции " + other.gameObject.transform.position);
                         // Check that we have a target tag and function name before running
                         if (touchFunction.functionName != string.Empty && touchFunction.targetTag == other.tag || touchFunction.targetTag == "GameController")
                         {

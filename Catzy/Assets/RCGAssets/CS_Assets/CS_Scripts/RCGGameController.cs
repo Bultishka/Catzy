@@ -572,7 +572,8 @@ namespace RoadCrossing
 
 			// If we ran out of lives, run the game over function
 			if (lives <= 0) StartCoroutine(GameOver(0.5f));
-			// what game should do if it is coop session 
+			
+			// what gameController should do if it is coop session 
 			else if (numOfPlayers > 1)
 			{
 				// check if the first player has died and his skin is still visible
@@ -590,7 +591,7 @@ namespace RoadCrossing
                     }
 
                     // Show the respawn object, allowing it to move
-                    if (respawnObject1)
+                    if (!respawnObject1.gameObject.activeSelf)
                     {
 						respawnObject1.gameObject.SetActive(true);
 
@@ -649,7 +650,7 @@ namespace RoadCrossing
                     }
 
                     // Show the respawn object, allowing it to move
-                    if (respawnObject2)
+                    if (!respawnObject2.gameObject.activeSelf)
                     {
                         respawnObject2.gameObject.SetActive(true);
 
@@ -711,7 +712,7 @@ namespace RoadCrossing
                     }
 
                     // Show the respawn object, allowing it to move
-                    if (respawnObject1)
+                    if (!respawnObject1.gameObject.activeSelf)
                     {
                         respawnObject1.gameObject.SetActive(true);
 
