@@ -20,7 +20,7 @@ namespace RoadCrossing
 		// The player
 		public Transform[] playerObjects1;
         public Transform[] playerObjects2;
-        public int currentPlayer1;
+        private int currentPlayer1;
         public int currentPlayer2;
 
         // Player lives. Death –> -1 life. 0 lifes = game over.
@@ -220,13 +220,14 @@ namespace RoadCrossing
 			}
 
 			// Get the currently selected player from PlayerPrefs
-			currentPlayer1 = PlayerPrefs.GetInt("currentPlayer1", currentPlayer1);
+			currentPlayer1 = PlayerPrefs.GetInt("CurrentPlayer", currentPlayer1);
+			Debug.Log(currentPlayer1);
 
 			// Set the current player object
 			SetPlayer1(currentPlayer1);
 			if(numOfPlayers > 1)
 			{
-				SetPlayer2(currentPlayer2);
+				SetPlayer2(Random.Range(0, 5));
 			}
 
 			// If the player object is not already assigned, Assign it from the "Player" tag

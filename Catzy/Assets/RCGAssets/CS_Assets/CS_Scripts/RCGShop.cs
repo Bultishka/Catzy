@@ -137,6 +137,8 @@ namespace RoadCrossing
 			currentItem = itemNumber;
 
 			PlayerPrefs.SetInt(playerPrefsName, itemNumber);
+
+			Debug.Log(playerPrefsName + " " + itemNumber);
 		}
 	}
 }
