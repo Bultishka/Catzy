@@ -139,7 +139,9 @@ namespace RoadCrossing
 		internal bool isPaused = false;
 		internal int index = 0;
 
-		void Start()
+        float screenMiddle = Screen.width / 2;
+
+        void Start()
 		{
 			// Update the score and lives without changing them
 			ChangeScore(0);
@@ -280,7 +282,7 @@ namespace RoadCrossing
 		/// </summary>
 		void Update()
 		{
-			if (numOfPlayers > 0) 
+			if (numOfPlayers > 1) 
 			{
                 if (respawnObject1.gameObject.activeSelf)
                 {
@@ -349,27 +351,53 @@ namespace RoadCrossing
 							swipeEnd = touch.position;
 						}
 
-						// Check the touch position at the end, and move the player accordingly
-						if (touch.phase == TouchPhase.Ended && swipeTimeoutCount > 0)
+						if(numOfPlayers > 1)
 						{
-							if ((swipeStart.x - swipeEnd.x) > swipeDistance && (swipeStart.y - swipeEnd.y) < -swipeDistance) // Swipe left
-							{
-								MovePlayer1("left");
-							}
-							else if ((swipeStart.x - swipeEnd.x) < -swipeDistance && (swipeStart.y - swipeEnd.y) > swipeDistance) // Swipe right
-							{
-								MovePlayer1("right");
-							}
-							else if ((swipeStart.y - swipeEnd.y) < -swipeDistance && (swipeStart.x - swipeEnd.x) < -swipeDistance) // Swipe up
-							{
-								MovePlayer1("forward");
-							}
-							else if ((swipeStart.y - swipeEnd.y) > swipeDistance && (swipeStart.x - swipeEnd.x) > swipeDistance) // Swipe down
-							{
-								MovePlayer1("backward");
-							}
-						}
-					}
+                            if (touch.phase == TouchPhase.Ended && swipeTimeoutCount > 0)
+                            {
+                                string direction = "";
+
+                                if ((swipeStart.x - swipeEnd.x) > swipeDistance && (swipeStart.y - swipeEnd.y) < -swipeDistance)
+                                    direction = "left";
+                                else if ((swipeStart.x - swipeEnd.x) < -swipeDistance && (swipeStart.y - swipeEnd.y) > swipeDistance)
+                                    direction = "right";
+                                else if ((swipeStart.y - swipeEnd.y) < -swipeDistance && (swipeStart.x - swipeEnd.x) < -swipeDistance)
+                                    direction = "forward";
+                                else if ((swipeStart.y - swipeEnd.y) > swipeDistance && (swipeStart.x - swipeEnd.x) > swipeDistance)
+                                    direction = "backward";
+
+                                if (direction != "")
+                                {
+                                    if (swipeStart.x < screenMiddle)
+                                        MovePlayer1(direction);
+                                    else
+                                        MovePlayer2(direction);
+                                }
+                            }
+                        }
+						else
+						{
+							Debug.Log("WTF");
+                            if (touch.phase == TouchPhase.Ended && swipeTimeoutCount > 0)
+                            {
+                                string direction = "";
+
+                                if ((swipeStart.x - swipeEnd.x) > swipeDistance && (swipeStart.y - swipeEnd.y) < -swipeDistance)
+                                    direction = "left";
+                                else if ((swipeStart.x - swipeEnd.x) < -swipeDistance && (swipeStart.y - swipeEnd.y) > swipeDistance)
+                                    direction = "right";
+                                else if ((swipeStart.y - swipeEnd.y) < -swipeDistance && (swipeStart.x - swipeEnd.x) < -swipeDistance)
+                                    direction = "forward";
+                                else if ((swipeStart.y - swipeEnd.y) > swipeDistance && (swipeStart.x - swipeEnd.x) > swipeDistance)
+                                    direction = "backward";
+
+                                if (direction != "")
+                                {
+									MovePlayer1(direction);
+                                }
+                            }
+                        }
+                    }
 				}
 			}
 
