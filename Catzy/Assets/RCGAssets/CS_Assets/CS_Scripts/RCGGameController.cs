@@ -222,12 +222,13 @@ namespace RoadCrossing
 			// Get the currently selected player from PlayerPrefs
 			currentPlayer1 = PlayerPrefs.GetInt("CurrentPlayer", currentPlayer1);
 			Debug.Log(currentPlayer1);
+			currentPlayer2 = Random.Range(0, 8);
 
-			// Set the current player object
-			SetPlayer1(currentPlayer1);
+            // Set the current player object
+            SetPlayer1(currentPlayer1);
 			if(numOfPlayers > 1)
 			{
-				SetPlayer2(Random.Range(0, 5));
+				SetPlayer2(currentPlayer2);
 			}
 
 			// If the player object is not already assigned, Assign it from the "Player" tag
